@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
 import { task, actions } from './Task.stories';
-import TaskList from './TaskList';
+import PureTaskList from './PureTaskList';
 
 export const defaultTasks = [
   { ...task, id: '1', title: 'Task 1' },
@@ -20,7 +20,7 @@ export const withPinnedTasks = [
 
 storiesOf('TaskList', module)
   .addDecorator(story => <View style={[styles.TaskBox, { padding: 42 }]}>{story()}</View>)
-  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);

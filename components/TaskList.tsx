@@ -1,59 +1,24 @@
 import * as React from 'react';
-import Task, {Task as TaskType} from './Task';
-import PercolateIcons from '../constants/Percolate';
-import LoadingRow from './LoadingRow';
-import { FlatList, Text, SafeAreaView, View } from 'react-native';
-import { styles } from '../constants/globalStyles';
-
-type TaskListProps = {
-    loading?: boolean,
-    tasks: TaskType[],
-    onPinTask: (id: string) => void,
-    onArchiveTask: (id: string) => void,
-}
+import PureTaskList, {TaskListProps}  from './PureTaskList';
+import { connect } from 'react-redux';
+import { archiveTask, pinTask } from '../lib/redux';
 
 function TaskList(props: TaskListProps) {
-    const { loading, tasks, onPinTask, onArchiveTask } = props;
+  const { tasks, onPinTask, onArchiveTask } = props;
   const events = {
     onPinTask,
     onArchiveTask,
   };
-  if (loading) {
-    return (
-      <SafeAreaView style={styles.ListItems}>
-        <LoadingRow />
-        <LoadingRow />
-        <LoadingRow />
-        <LoadingRow />
-        <LoadingRow />
-        <LoadingRow />
-      </SafeAreaView>
-    );
-  }
-  if (tasks.length === 0) {
-    return (
-      <SafeAreaView style={styles.ListItems}>
-        <View style={styles.WrapperMessage}>
-          <PercolateIcons name="check" size={64} color={'#2cc5d2'} />
-          <Text style={styles.TitleMessage}>You have no tasks</Text>
-          <Text style={styles.SubtitleMessage}>Sit back and relax</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-  const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-  ];
-  return (
-    <SafeAreaView style={styles.ListItems}>
-      <FlatList
-        data={tasksInOrder}
-        keyExtractor={task => task.id}
-        renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
-      />
-    </SafeAreaView>
-  );
+
+  return <PureTaskList tasks={tasks} {...events} />;
 }
 
-export default TaskList;
+export default connect(
+  (props: TaskListProps) => ({
+    tasks: props.tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+  }),
+  dispatch => ({
+    onArchiveTask: (id: string) => dispatch(archiveTask(id)),
+    onPinTask: (id: string) => dispatch(pinTask(id)),
+  })
+)(TaskList);
