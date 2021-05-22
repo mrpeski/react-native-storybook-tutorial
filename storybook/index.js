@@ -13,6 +13,7 @@ addDecorator(withKnobs);
 configure(() => {
   // require('./stories');
   require('../components/Task.stories.js');
+  require('../components/TaskList.stories.tsx');
 }, module);
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters

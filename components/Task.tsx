@@ -4,7 +4,8 @@ import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { styles } from '../constants/globalStyles';
 import PercolateIcons from '../constants/Percolate';
 
-type Task = { id: string, title: string, state: string, updatedAt?: string }; 
+export type Task = { id: string, title: string, state: string, updatedAt?: Date }; 
+
 type TaskProps = {
   task: Task,
   onArchiveTask: (id: string) => void,
