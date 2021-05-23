@@ -1,5 +1,26 @@
-import { StyleSheet } from 'react-native';
-export const styles = StyleSheet.create({
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+
+interface Styles {
+  container: ViewStyle,
+  TaskBox: ViewStyle,
+  CheckBox: ViewStyle,
+  GlowCheckbox: ViewStyle,
+  GlowText: TextStyle,
+  ListItem: TextStyle,
+  ListItemInputTask: TextStyle,
+  ListItemInputTaskArchived: TextStyle,
+  LoadingItem: TextStyle,
+  ListItems: TextStyle,
+  WrapperMessage: TextStyle,
+  PageListsShow: ViewStyle,
+  PageListsShowhead: ViewStyle,
+  TitleMessage: TextStyle,
+  SubtitleMessage: TextStyle,
+  titlepage: ViewStyle,
+  TitleWrapper: TextStyle,
+}
+
+export const styles = StyleSheet.create<Styles>({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -88,7 +109,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   PageListsShow: {
-    minHeight: '100vh',
+    minHeight: '100%',
     backgroundColor: 'white',
   },
   PageListsShowhead: {

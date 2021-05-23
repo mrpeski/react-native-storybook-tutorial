@@ -12,6 +12,7 @@ addDecorator(withKnobs);
 // import stories
 configure(() => {
   // require('./stories');
+  require('../screens/PureInboxScreen.stories.tsx');
   require('../components/Task.stories.js');
   require('../components/PureTaskList.stories.tsx');
 }, module);
